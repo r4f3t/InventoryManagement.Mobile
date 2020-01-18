@@ -1,0 +1,1 @@
+export { default as BarcodeScannerIcon } from './Icons/BarcodeScannerIcon'

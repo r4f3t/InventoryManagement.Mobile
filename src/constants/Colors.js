@@ -1,5 +1,6 @@
 const tintColor = '#2f95dc';
 
 export default {
-  appBackground: '#fffffe'
+  appBackground: '#fffffe',
+  scannerIconColor: '#ef4565'
 };
