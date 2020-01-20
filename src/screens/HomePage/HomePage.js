@@ -1,16 +1,37 @@
 import React from "react";
 import { View, Button, StyleSheet } from "react-native";
 
-import Text from "../../components/Text/Text";
+import Colors from "../../constants/Colors";
+import MenuButton from "../../components/MenuButton/MenuButton";
 
 function HomePage({ navigation: { navigate } }) {
   return (
     <View style={styles.container}>
-      <Text size="small" value="small" />
-      <Text value="medium" />
-      <Text size="large" value="large" />
-      <Text size="large" weight="bold" value="bold" />
-      <Button title="Press me" onPress={() => navigate("BarcodeDetail")} />
+      <MenuButton
+        label="Barcode Detayı"
+        onPress={() => navigate("BarcodeDetail")}
+      />
+      <MenuButton
+        label="Fiş Detayı"
+      />
+      <MenuButton
+        label="Fiş Oluşturma"
+      />
+      <MenuButton
+        label="Bla Bla"
+      />
+      <MenuButton
+        label="Bla Bla"
+      />
+      <MenuButton
+        label="Bla Bla"
+      />
+      <MenuButton
+        label="Bla Bla"
+      />
+      <MenuButton
+        label="Bla Bla"
+      />
     </View>
   );
 }
@@ -18,7 +39,20 @@ function HomePage({ navigation: { navigate } }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40
+    marginTop: 40,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginHorizontal: 16
+  },
+  button: {
+    backgroundColor: Colors.buttonColor,
+    height: 80,
+    width: 160,
+    borderRadius: 8,
+    marginTop: 16,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
