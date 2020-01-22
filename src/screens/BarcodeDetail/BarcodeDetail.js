@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Button, View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import Layout from "../../constants/Layout";
 
+import Text from "../../components/Text";
+import Layout from "../../constants/Layout";
 import { BarcodeScannerIcon } from "../../components/Svgs";
+import SearchByNumber from "../../components/SearchByNumber";
+import LabelValue from "../../components/LabelValue";
+import { getBarcode } from "../../helpers/requests";
 
 function BarcodeDetail() {
   const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
-  const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+  const [barcode, setBarcode] = useState();
+  const [orderDetail, setOrderDetail] = useState();
+
+  const handleBarCodeScanned = async ({ data }) => {
+    setBarcode(data);
+    const response = await getBarcode(data);
+    setOrderDetail(response);
+  };
+  const handleBarcodeChange = number => {
+    setBarcode(number);
+  };
+  const handleSubmitSearch = async () => {
+    const response = await getBarcode(barcode);
+    setOrderDetail(response);
   };
 
   useEffect(() => {
@@ -29,17 +43,53 @@ function BarcodeDetail() {
       <View style={styles.barcodeScannerWrapper}>
         {hasPermission && (
           <BarCodeScanner
-            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-            style={styles.barcodeScanner}>
-            <Text style={styles.barcodeScannerLabel}>Barkodu Okutunuz</Text>
+            onBarCodeScanned={handleBarCodeScanned}
+            style={styles.barcodeScanner}
+          >
+            <Text value="Barkodu Okutunuz" style={styles.barcodeScannerLabel} />
             <BarcodeScannerIcon />
           </BarCodeScanner>
         )}
       </View>
-
-      {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
-      )}
+      <SearchByNumber
+        value={barcode}
+        label="Barkod Numarası"
+        onChange={handleBarcodeChange}
+        onPress={handleSubmitSearch}
+        placeholder="Barkod Numarası"
+      />
+      {orderDetail && [
+        <LabelValue
+          style={{ marginTop: 16 }}
+          label="Ürün Adı"
+          bold
+          large
+          value={() => (
+            <Text weight="bold" size="large" value={orderDetail.stockName} />
+          )}
+        />,
+        <LabelValue
+          style={{ marginTop: 16 }}
+          label="Ürün Kodu"
+          bold
+          large
+          value={() => (
+            <Text weight="bold" size="large" value={orderDetail.stockCode} />
+          )}
+        />,
+        <LabelValue
+          style={{ marginTop: 16 }}
+          label="Özel Kod"
+          bold
+          value={() => <Text weight="bold" value={orderDetail.specode} />}
+        />,
+        <LabelValue
+          style={{ marginTop: 16 }}
+          label="Ambar"
+          bold
+          value={() => <Text weight="bold" value={orderDetail.wareHouse} />}
+        />
+      ]}
     </View>
   );
 }
@@ -62,10 +112,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  barcodeScannerLabel:{
+  barcodeScannerLabel: {
     fontSize: 16,
     marginTop: 8
   }
 });
+BarcodeDetail.navigationOptions = {
+  title: "Barkod Gör"
+};
 
 export default BarcodeDetail;
