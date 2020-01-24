@@ -1,1 +1,1 @@
-export default from "./LabelValue";
+export { default } from "./LabelValue";

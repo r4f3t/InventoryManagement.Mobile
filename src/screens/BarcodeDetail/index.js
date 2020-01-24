@@ -1,1 +1,1 @@
-export default from "./BarcodeDetail";
+export { default } from "./BarcodeDetail";

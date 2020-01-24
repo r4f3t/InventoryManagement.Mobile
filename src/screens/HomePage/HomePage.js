@@ -16,6 +16,7 @@ function HomePage({ navigation: { navigate } }) {
       />
       <MenuButton
         label="Fiş Oluşturma"
+        onPress={() => navigate("ReceiptCreate")}
       />
       <MenuButton
         label="Bla Bla"
