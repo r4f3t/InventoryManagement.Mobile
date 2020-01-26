@@ -1,9 +1,17 @@
 import React from "react";
-import { View, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
 
 import Text from "../Text";
+import TextInput from "../TextInput";
 
-function SearchByNumber({ label, placeholder, value, onChange, onPress }) {
+function SearchByNumber({
+  label,
+  placeholder,
+  value,
+  onChange,
+  onPress,
+  buttonLabel = "ARA"
+}) {
   return (
     <View style={styles.container}>
       <Text style={styles.text} value={label} weight="bold" />
@@ -13,7 +21,7 @@ function SearchByNumber({ label, placeholder, value, onChange, onPress }) {
         onChangeText={onChange}
         value={value}
       />
-      <Button style={styles.button} title="ARA" onPress={onPress} />
+      <Button style={styles.button} title={buttonLabel} onPress={onPress} />
     </View>
   );
 }
@@ -30,10 +38,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 2,
-    borderRadius: 2,
-    borderWidth: 1,
-    marginHorizontal: 8,
-    paddingHorizontal: 8
+    marginRight: 8
   },
   button: {
     flex: 1

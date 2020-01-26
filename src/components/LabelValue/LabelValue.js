@@ -3,15 +3,16 @@ import { View, StyleSheet } from "react-native";
 
 import Text from "../Text";
 
-function LabelValue({ label, value: Value, bold, style, large }) {
+function LabelValue({ label, value: Value, bold, style, size }) {
   return (
     <View style={[styles.container, style]}>
       <Text
         value={label}
+        style={{ flex: 1 }}
         {...(bold && { weight: "bold" })}
-        {...(large && { size: "large" })}
+        {...(size && { size })}
       />
-      {Value && <Value />}
+      {Value && <Value style={{ flex: 1 }} />}
     </View>
   );
 }

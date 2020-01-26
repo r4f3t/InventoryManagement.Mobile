@@ -6,7 +6,7 @@ import Colors from '../../constants/Colors'
 
 function Text({ value, size = 'medium', weight = 'normal', color = Colors.textColor, style, children, ...rest }) {
     return (
-        <RNText style={[style, { fontSize: SIZE[size], fontWeight: WEIGHT[weight], color, textAlign:'center' }]} {...rest}>{value || children}</RNText>
+        <RNText style={[style, { fontSize: SIZE[size], fontWeight: WEIGHT[weight], color }]} {...rest}>{value || children}</RNText>
     )
 }
 
